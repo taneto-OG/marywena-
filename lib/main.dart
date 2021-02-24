@@ -104,7 +104,11 @@ class _MyHomePageState extends State<MyHomePage> {
   //get general info from web
   List<WeedBreed> parseResult(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<WeedBreed>((json) => WeedBreed.fromJson(json)).toList();
+    var returnable = parsed.map<WeedBreed>((json) => WeedBreed.fromJson(json)).toList();
+    if (returnable == null)
+      return [];
+    else
+      return returnable;
   }
 
   Future<List<WeedBreed>> _getInfoFromSearchResult(String input, http.Client client) async {
@@ -112,18 +116,27 @@ class _MyHomePageState extends State<MyHomePage> {
       return [];
 
     final response = await client.get('https://strainapi.evanbusse.com/3idwVwu/strains/search/name/' + input);
-    return parseResult(response.body);
+    if (parseResult(response.body) == null)
+      return [];
+    else
+      return parseResult(response.body);
   }
 
   //get info ID BASED
   Effects parseResultNlEffects(String responseBody) {
     final e = json.decode(responseBody);
     print (e);
-    return Effects.fromJson(e);
+    if (Effects.fromJson(e) == null)
+      return Effects();
+    else
+      return Effects.fromJson(e);
   }
 
   Flavors parseResultNlFlavors(String responseBody) {
-    return jsonDecode(responseBody).cast<Flavors, String>();
+    if (jsonDecode(responseBody).cast<Flavors, String>() == null)
+      return Flavors();
+    else
+      return jsonDecode(responseBody).cast<Flavors, String>();
   }
 
   Future<WeedBreed> _getDetailsFromId(int id, String name, http.Client client) async {
@@ -169,6 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
@@ -177,15 +191,14 @@ class _MyHomePageState extends State<MyHomePage> {
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Buscar',
+                  labelText: 'Search...',
                 ),
                 onChanged: (text) {
                   _updateField(text, 0, "");
                 },
               ),
             ),
-            Center(
-              
+            Expanded(
               child: FutureBuilder<List<WeedBreed>>(
                 future: _getInfoFromSearchResult(_input, http.Client()),
                 builder: (context, snapshot) {
@@ -202,7 +215,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
 class BreedDetails extends StatelessWidget
 {
   final WeedBreed breed;
@@ -213,6 +225,39 @@ class BreedDetails extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
+    if (breed.id == 4126750000){
+      return Column(
+        children: [
+          Container(
+            height: 100,
+            alignment: Alignment.center,
+            child: Card(
+              margin: EdgeInsets.only(
+                top: 12,
+                left: 20,
+                right: 20,
+              ),
+              elevation: 15,
+              clipBehavior: Clip.antiAlias,
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.error_outline),
+                    title: Text(
+                      ":("
+                    ),
+                    subtitle: Text(
+                      "Oooops, It seems that this breed does not exists.",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
     List<Widget> flavourChildren = [];
     List<Widget> positiveChildren = [];
     List<Widget> negativeChildren = [];
@@ -221,8 +266,36 @@ class BreedDetails extends StatelessWidget
     for (String s in breed.f.f)
     {
       flavourChildren.add(
-        Text(
-          s
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              s
+            ),
+          ),
+        ),
+      );
+    }
+    if (flavourChildren.isEmpty)
+    {
+      flavourChildren.add(
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              "None"
+            ),
+          ),
         ),
       );
     }
@@ -231,8 +304,36 @@ class BreedDetails extends StatelessWidget
     for (String s in breed.e.positive)
     {
       positiveChildren.add(
-        Text(
-          s
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              s
+            ),
+          ),
+        ),
+      );
+    }
+    if (positiveChildren.isEmpty)
+    {
+      positiveChildren.add(
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              "None"
+            ),
+          ),
         ),
       );
     }
@@ -241,8 +342,36 @@ class BreedDetails extends StatelessWidget
     for (String s in breed.e.negative)
     {
       negativeChildren.add(
-        Text(
-          s
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              s
+            ),
+          ),
+        ),
+      );
+    }
+    if (negativeChildren.isEmpty)
+    {
+      negativeChildren.add(
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              "None"
+            ),
+          ),
         ),
       );
     }
@@ -251,8 +380,36 @@ class BreedDetails extends StatelessWidget
     for (String s in breed.e.medical)
     {
       medicalChildren.add(
-        Text(
-          s
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              s
+            ),
+          ),
+        ),
+      );
+    }
+    if (medicalChildren.isEmpty)
+    {
+      medicalChildren.add(
+        Card(
+          elevation: 0,
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10
+          ),
+          child: Title(
+            color: Colors.grey,
+            child: Text(
+              "None"
+            ),
+          ),
         ),
       );
     }
@@ -267,53 +424,128 @@ class BreedDetails extends StatelessWidget
             ListTile(
               title: Text(breed.name),
             ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Text("Flavors"),
-                    Card(
-                      child: Column(
-                        children: flavourChildren,
-                      ),
-                    )
-                  ],
-                ),
-
-                Column(
-                  children: [
-                    Text("Positive effects"),
-                    Card(
-                      child: Column(
-                        children: positiveChildren,
-                      ),
-                    )
-                  ],
-                ),
-
-                Column(
-                  children: [
-                    Text("Negative effects"),
-                    Card(
-                      child: Column(
-                        children: negativeChildren,
-                      ),
-                    )
-                  ],
-                ),
-
-                Column(
-                  children: [
-                    Text("Medicinal effects"),
-                    Card(
-                      child: Column(
-                        children: medicalChildren,
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            )
+            Expanded(
+              child:ListView(
+                children: [
+                  Card(
+                    elevation: 2,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.dry_outlined
+                          ),
+                          title: Text(
+                            "Flavors"
+                          ),
+                        ),
+                        Container(
+                          width: 500,
+                          child: Card(
+                            margin: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 12,
+                            ),
+                            elevation: 15,
+                            child: Column(
+                              children: flavourChildren,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.download_done_outlined
+                          ),
+                          title: Text(
+                            "Positive effects"
+                          ),
+                        ),
+                        Container(
+                          width: 500,
+                          child: Card(
+                            margin: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 12,
+                            ),
+                            elevation: 15,
+                            child: Column(
+                              children: positiveChildren,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.healing_outlined
+                          ),
+                          title: Text(
+                            "Medicinal effects"
+                          ),
+                        ),
+                        Container(
+                          width: 500,
+                          child: Card(
+                            margin: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 12,
+                            ),
+                            elevation: 15,
+                            child: Column(
+                              children: medicalChildren,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.warning_sharp
+                          ),
+                          title: Text(
+                            "Negative effects"
+                          ),
+                        ),
+                        Container(
+                          width: 500,
+                          child: Card(
+                            margin: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 12,
+                            ),
+                            elevation: 15,
+                            child: Column(
+                              children: negativeChildren,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),  
@@ -332,6 +564,18 @@ class BreedList extends StatelessWidget {
     List<Widget> resultCards = [];
 
     for (WeedBreed b in breeds) {
+      if (resultCards.length > 25)
+        break;
+
+      if (b.name == null)
+        b.name = " ";
+
+      if (b.id == null)
+        b.id = 4126750000;
+
+      if (b.desc == null)
+        b.desc = " ";
+
       resultCards.add(
         InkWell(
           onTap: ()
@@ -339,16 +583,21 @@ class BreedList extends StatelessWidget {
             extracontext._updateField(extracontext._input, b.id, b.name);
           },
           child: Container(
-            height: 100,
             alignment: Alignment.center,
             child: Card(
+              margin: EdgeInsets.only(
+                top: 12,
+                left: 20,
+                right: 20,
+              ),
+              elevation: 15,
               clipBehavior: Clip.antiAlias,
               child: Column(
                 children: [
                   ListTile(
                     leading: Icon(Icons.eco_outlined),
                     title: Text(
-                      b.name + " "
+                      b.name + " ",
                     ),
                     subtitle: Text(
                       b.desc + " ",
@@ -363,28 +612,54 @@ class BreedList extends StatelessWidget {
       );
     }
 
-    resultCards.add(
-      Container(
-        height: 100,
-        alignment: Alignment.center,
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              ListTile(
-                leading: Icon(Icons.eco_outlined),
-                title: Text(
-                  " That's the end of the list "
+    if (resultCards.isEmpty)
+      return NoBreedsFoundCard(
+        extracontext: extracontext,
+      );
+
+    return ListView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      children: resultCards,
+    );
+  }
+}
+
+class NoBreedsFoundCard extends StatelessWidget {
+  final _MyHomePageState extracontext;
+
+  NoBreedsFoundCard({Key key, this.extracontext}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 100,
+          alignment: Alignment.center,
+          child: Card(
+            margin: EdgeInsets.only(
+              top: 12,
+              left: 20,
+              right: 20,
+            ),
+            elevation: 15,
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Icon((extracontext._input == "") ? Icons.help_outline : Icons.error_outline ),
+                  title: Text(
+                    (extracontext._input == "") ? "Hey" : ":(",
+                  ),
+                  subtitle: Text(
+                    (extracontext._input == "") ? "Try searching for a breed you already know." : "Could't find anything with \"" + extracontext._input + "\".",
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
-
-    return Column(
-      children: resultCards,
+      ],
     );
   }
 }
