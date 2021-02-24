@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -91,6 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _id = 0;
   String _name;
 
+  _launchSupportUrl() async {
+    const url = 'https://www.instagram.com/jotalevi/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
+  }
 
   void _updateField(text, int id, String name) {
     setState(() {
@@ -223,6 +230,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
+                Container(
+                    height: 50.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: Card(
+                      color: Colors.green[900],
+                      elevation: 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center ,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.ios_share,
+                            ), 
+                            onPressed: (){
+                              Share.share("Chek out this crazy app, you're going to like it");
+                            }
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                              right: MediaQuery.of(context).size.width * .10,
+                              left: MediaQuery.of(context).size.width * .10,
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                            ), 
+                            onPressed: (){
+                              _launchSupportUrl();
+                            }
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -560,12 +602,13 @@ class BreedDetails extends StatelessWidget
               ),
             ),
             Container(
-              color: Colors.black38,
+              color: Colors.black12,
               height: 100,
               alignment: Alignment.bottomCenter,
               padding: EdgeInsets.only(
                   right: 20.0,
-                  left: 20.0),
+                  left: 20.0
+              ),
               child: Column(
                 children: [
                   ListTile(
@@ -578,7 +621,7 @@ class BreedDetails extends StatelessWidget
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       color: Colors.green[900],
-                      elevation: 50,
+                      elevation: 10,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center ,
                         children: [
@@ -589,6 +632,12 @@ class BreedDetails extends StatelessWidget
                             onPressed: (){
                               Share.share('check out my website https://example.com');
                             }
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                              right: MediaQuery.of(context).size.width * .10,
+                              left: MediaQuery.of(context).size.width * .10,
+                            ),
                           ),
                           IconButton(
                             icon: Icon(
