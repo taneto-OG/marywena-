@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:share/share.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,11 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MariWena',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
-        brightness: Brightness.dark,
+        primarySwatch: Colors.green,
       ),
       home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -90,7 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _details = false;
   int _id = 0;
   String _name;
-
 
   void _updateField(text, int id, String name) {
     setState(() {
@@ -185,47 +181,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       body: Center(
-        child: Card(
-          elevation: 1,
-          margin: EdgeInsets.only(
-            top: 5,
-            right: 5,
-            bottom: 5,
-            left: 5,
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 20,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Search...',
-                    ),
-                    onChanged: (text) {
-                      _updateField(text, 0, "");
-                    },
-                  ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 20,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Search...',
                 ),
-                Expanded(
-                  child: FutureBuilder<List<WeedBreed>>(
-                    future: _getInfoFromSearchResult(_input, http.Client()),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) print(snapshot.error);
-                      return snapshot.hasData
-                        ? BreedList(breeds: snapshot.data, extracontext: this)
-                        : Center(child: CircularProgressIndicator());
-                    },
-                  ),
-                ),
-              ],
+                onChanged: (text) {
+                  _updateField(text, 0, "");
+                },
+              ),
             ),
-          ),
+            Expanded(
+              child: FutureBuilder<List<WeedBreed>>(
+                future: _getInfoFromSearchResult(_input, http.Client()),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) print(snapshot.error);
+                  return snapshot.hasData
+                    ? BreedList(breeds: snapshot.data, extracontext: this)
+                    : Center(child: CircularProgressIndicator());
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -433,10 +417,13 @@ class BreedDetails extends StatelessWidget
     return Expanded(
       child: InkWell(
         onTap: () {
-          
+          extracontext._updateField(extracontext._input, 0, "");
         }, 
         child: Column(
           children: [
+            ListTile(
+              title: Text(breed.name),
+            ),
             Expanded(
               child:ListView(
                 children: [
@@ -559,52 +546,6 @@ class BreedDetails extends StatelessWidget
                 ],
               ),
             ),
-            Container(
-              color: Colors.black38,
-              height: 100,
-              alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.only(
-                  right: 20.0,
-                  left: 20.0),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      breed.name,
-                    ),
-                  ),
-                  Container(
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    child: Card(
-                      color: Colors.green[900],
-                      elevation: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center ,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.ios_share,
-                            ), 
-                            onPressed: (){
-                              Share.share('check out my website https://example.com');
-                            }
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.close,
-                            ), 
-                            onPressed: (){
-                              extracontext._updateField(extracontext._input, 0, "");
-                            }
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),  
@@ -660,7 +601,7 @@ class BreedList extends StatelessWidget {
                     ),
                     subtitle: Text(
                       b.desc + " ",
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
                 ],
