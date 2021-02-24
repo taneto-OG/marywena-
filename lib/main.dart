@@ -472,191 +472,190 @@ class BreedDetails extends StatelessWidget
       );
     }
 
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          
-        }, 
-        child: Column(
-          children: [
-            Expanded(
-              child:ListView(
-                children: [
-                  Card(
-                    elevation: 2,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(
-                            Icons.dry_outlined
-                          ),
-                          title: Text(
-                            "Flavors"
-                          ),
-                        ),
-                        Container(
-                          width: 500,
-                          child: Card(
-                            margin: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              bottom: 12,
-                            ),
-                            elevation: 15,
-                            child: Column(
-                              children: flavourChildren,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Card(
-                    elevation: 2,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(
-                            Icons.download_done_outlined
-                          ),
-                          title: Text(
-                            "Positive effects"
-                          ),
-                        ),
-                        Container(
-                          width: 500,
-                          child: Card(
-                            margin: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              bottom: 12,
-                            ),
-                            elevation: 15,
-                            child: Column(
-                              children: positiveChildren,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Card(
-                    elevation: 2,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(
-                            Icons.healing_outlined
-                          ),
-                          title: Text(
-                            "Medicinal effects"
-                          ),
-                        ),
-                        Container(
-                          width: 500,
-                          child: Card(
-                            margin: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              bottom: 12,
-                            ),
-                            elevation: 15,
-                            child: Column(
-                              children: medicalChildren,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Card(
-                    elevation: 2,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(
-                            Icons.warning_sharp
-                          ),
-                          title: Text(
-                            "Negative effects"
-                          ),
-                        ),
-                        Container(
-                          width: 500,
-                          child: Card(
-                            margin: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              bottom: 12,
-                            ),
-                            elevation: 15,
-                            child: Column(
-                              children: negativeChildren,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.black12,
-              height: 100,
-              alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.only(
-                  right: 20.0,
-                  left: 20.0
-              ),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      breed.name,
-                    ),
-                  ),
-                  Container(
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    child: Card(
-                      color: Colors.green[900],
-                      elevation: 10,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center ,
+    return Column(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              Expanded(
+                child:ListView(
+                  children: [
+                    Card(
+                      elevation: 2,
+                      child: Column(
                         children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.ios_share,
-                            ), 
-                            onPressed: (){
-                              Share.share('check out my website https://example.com');
-                            }
+                          ListTile(
+                            leading: Icon(
+                              Icons.dry_outlined
+                            ),
+                            title: Text(
+                              "Flavors"
+                            ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.width * .10,
-                              left: MediaQuery.of(context).size.width * .10,
+                            width: 500,
+                            child: Card(
+                              margin: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                bottom: 12,
+                              ),
+                              elevation: 15,
+                              child: Column(
+                                children: flavourChildren,
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.close,
-                            ), 
-                            onPressed: (){
-                              extracontext._updateField(extracontext._input, 0, "");
-                            }
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Card(
+                      elevation: 2,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.download_done_outlined
+                            ),
+                            title: Text(
+                              "Positive effects"
+                            ),
+                          ),
+                          Container(
+                            width: 500,
+                            child: Card(
+                              margin: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                bottom: 12,
+                              ),
+                              elevation: 15,
+                              child: Column(
+                                children: positiveChildren,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      elevation: 2,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.healing_outlined
+                            ),
+                            title: Text(
+                              "Medicinal effects"
+                            ),
+                          ),
+                          Container(
+                            width: 500,
+                            child: Card(
+                              margin: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                bottom: 12,
+                              ),
+                              elevation: 15,
+                              child: Column(
+                                children: medicalChildren,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      elevation: 2,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.warning_sharp
+                            ),
+                            title: Text(
+                              "Negative effects"
+                            ),
+                          ),
+                          Container(
+                            width: 500,
+                            child: Card(
+                              margin: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                bottom: 12,
+                              ),
+                              elevation: 15,
+                              child: Column(
+                                children: negativeChildren,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),  
+              Container(
+                color: Colors.black12,
+                height: 100,
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.only(
+                    right: 20.0,
+                    left: 20.0
+                ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        breed.name,
+                      ),
+                    ),
+                    Container(
+                      height: 50.0,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        color: Colors.green[900],
+                        elevation: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center ,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.ios_share,
+                              ), 
+                              onPressed: (){
+                                Share.share('check out my website https://example.com');
+                              }
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(
+                                right: MediaQuery.of(context).size.width * .10,
+                                left: MediaQuery.of(context).size.width * .10,
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.close,
+                              ), 
+                              onPressed: (){
+                                extracontext._updateField(extracontext._input, 0, "");
+                              }
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),  
+      ],
     );
   }
 }
