@@ -231,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Container(
-                    height: 50.0,
+                    height: 100.0,
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       color: Colors.green[900],
@@ -244,7 +244,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Icons.ios_share,
                             ), 
                             onPressed: (){
-                              Share.share("Chek out this crazy app, you're going to like it");
+                              Share.share("Chek out this crazy app, you're going to like it http://3.129.42.20/");
                             }
                           ),
                           Container(
@@ -601,7 +601,7 @@ class BreedDetails extends StatelessWidget
               ),
               Container(
                 color: Colors.black12,
-                height: 100,
+                height: 150,
                 alignment: Alignment.bottomCenter,
                 padding: EdgeInsets.only(
                     right: 20.0,
@@ -615,7 +615,7 @@ class BreedDetails extends StatelessWidget
                       ),
                     ),
                     Container(
-                      height: 50.0,
+                      height: 100.0,
                       width: MediaQuery.of(context).size.width,
                       child: Card(
                         color: Colors.green[900],
@@ -628,7 +628,7 @@ class BreedDetails extends StatelessWidget
                                 Icons.ios_share,
                               ), 
                               onPressed: (){
-                                Share.share('check out my website https://example.com');
+                                Share.share('H');
                               }
                             ),
                             Container(

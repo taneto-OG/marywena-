@@ -57353,7 +57353,7 @@ o=C.qI.h(0,900)
 n=B.Rp(L.i6(C.q1),new F.a18(),j)
 m=b.a0(s).f
 l=t.fQ
-return M.abp(T.mP(V.de(new T.ip(new V.ak(16,16,16,16),T.dg(H.c([r,q,M.cN(j,V.de(T.abm(H.c([n,M.cN(j,j,j,j,j,j,j,new V.ak(b.a0(s).f.a.a*0.1,0,m.a.a*0.1,0),j),B.Rp(L.i6(C.xn),new F.a19(k),j)],l),C.nd),j,o,10,j),j,j,j,50,j,j,p.a.a)],l),C.a0,C.yn),j),j,j,1,new V.ak(5,5,5,5)),j,j))}}
+return M.abp(T.mP(V.de(new T.ip(new V.ak(16,16,16,16),T.dg(H.c([r,q,M.cN(j,V.de(T.abm(H.c([n,M.cN(j,j,j,j,j,j,j,new V.ak(b.a0(s).f.a.a*0.1,0,m.a.a*0.1,0),j),B.Rp(L.i6(C.xn),new F.a19(k),j)],l),C.nd),j,o,10,j),j,j,j,100,j,j,p.a.a)],l),C.a0,C.yn),j),j,j,1,new V.ak(5,5,5,5)),j,j))}}
 F.a14.prototype={
 $0:function(){var s=this,r=s.b,q=s.a
 if(r!==0)q.e=!0
@@ -57383,7 +57383,7 @@ s=b.b
 return s!=null?new F.yT(s,this.a,null):T.mP(U.a9z(),null,null)},
 $S:340}
 F.a18.prototype={
-$0:function(){X.abx("Chek out this crazy app, you're going to like it")},
+$0:function(){X.abx("Chek out this crazy app, you're going to like it http://3.129.42.20/")},
 $C:"$0",
 $R:0,
 $S:1}
@@ -57417,9 +57417,9 @@ l=b.a0(m).f
 k=C.qI.h(0,900)
 j=B.Rp(L.i6(C.q1),new F.MD(),h)
 i=b.a0(m).f
-return T.dg(H.c([T.a5S(T.dg(H.c([r,M.cN(C.p7,T.dg(H.c([f,M.cN(h,V.de(T.abm(H.c([j,M.cN(h,h,h,h,h,h,h,new V.ak(b.a0(m).f.a.a*0.1,0,i.a.a*0.1,0),h),B.Rp(L.i6(C.xm),new F.ME(this),h)],s),C.nd),h,k,10,h),h,h,h,50,h,h,l.a.a)],s),C.a0,C.a1),C.pI,h,h,100,h,new V.ak(20,0,20,0),h)],s),C.a0,C.a1))],s),C.a0,C.a1)}}
+return T.dg(H.c([T.a5S(T.dg(H.c([r,M.cN(C.p7,T.dg(H.c([f,M.cN(h,V.de(T.abm(H.c([j,M.cN(h,h,h,h,h,h,h,new V.ak(b.a0(m).f.a.a*0.1,0,i.a.a*0.1,0),h),B.Rp(L.i6(C.xm),new F.ME(this),h)],s),C.nd),h,k,10,h),h,h,h,100,h,h,l.a.a)],s),C.a0,C.a1),C.pI,h,h,150,h,new V.ak(20,0,20,0),h)],s),C.a0,C.a1))],s),C.a0,C.a1)}}
 F.MD.prototype={
-$0:function(){X.abx("check out my website https://example.com")},
+$0:function(){X.abx("H")},
 $C:"$0",
 $R:0,
 $S:1}
