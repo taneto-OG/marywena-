@@ -19,8 +19,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MariWena',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        focusColor: Colors.green[700],
+        primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
+        secondaryHeaderColor: Colors.green[900],
+        primaryColor: Colors.green[700],
+        accentColor: Colors.green[900],
+        hintColor: Colors.green[500],
       ),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
@@ -93,9 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String _name;
 
   _launchSupportUrl() async {
-    const url = 'https://www.instagram.com/jotalevi/';
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunch('https://www.instagram.com/jotalevi/')) {
+      await launch('https://www.instagram.com/jotalevi/');
     }
   }
 
@@ -123,14 +127,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<List<WeedBreed>> _getInfoFromSearchResult(String input, http.Client client) async {
-    if (input == "")
+    BreedList._l = true;
+    if (input == ""){
+      BreedList._l = false;
       return [];
+    }
 
     final response = await client.get('https://strainapi.evanbusse.com/3idwVwu/strains/search/name/' + input);
-    if (parseResult(response.body) == null)
+    if (parseResult(response.body) == null){
+      BreedList._l = false;
       return [];
-    else
+    }else{
+      BreedList._l = false;
       return parseResult(response.body);
+    }
   }
 
   //get info ID BASED
@@ -211,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: MediaQuery.of(context).size.height / 20,
                   child: TextField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: UnderlineInputBorder(),
                       labelText: 'Search...',
                     ),
                     onChanged: (text) {
@@ -244,7 +254,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               Icons.ios_share,
                             ), 
                             onPressed: (){
-                              Share.share("Chek out this crazy app, you're going to like it http://3.129.42.20/");
+                              final RenderBox box = context.findRenderObject();
+                              Share.share(
+                                  "Hey dude, Take a look at this app: http://3.129.42.20",
+                                  subject: "MaryWena, The portable weed wiki.",
+                                  sharePositionOrigin: box.localToGlobal(
+                                    Offset.zero
+                                  ) & box.size
+                              );
                             }
                           ),
                           Container(
@@ -628,7 +645,14 @@ class BreedDetails extends StatelessWidget
                                 Icons.ios_share,
                               ), 
                               onPressed: (){
-                                Share.share('H');
+                                final RenderBox box = context.findRenderObject();
+                                Share.share(
+                                    breed.name,
+                                    subject: breed.desc,
+                                    sharePositionOrigin: box.localToGlobal(
+                                      Offset.zero
+                                    ) & box.size
+                                );
                               }
                             ),
                             Container(
@@ -661,6 +685,7 @@ class BreedDetails extends StatelessWidget
 }
 
 class BreedList extends StatelessWidget {
+  static bool _l;
   final List<WeedBreed> breeds;
   final _MyHomePageState extracontext;
 
@@ -738,6 +763,20 @@ class NoBreedsFoundCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (BreedList._l)
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator( 
+              backgroundColor: Colors.green[900],
+              valueColor: AlwaysStoppedAnimation(Colors.green[700]),
+              strokeWidth: 5,
+            ),
+          ],
+        ),
+      );
+
     return Column(
       children: [
         Container(
